@@ -25,7 +25,8 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">
-            <h1 class="text-center login-title">Log in to continue to System</h1>
+        	<img src="<?php echo base_url("assets/images/logo-baru.png"); ?>" >
+            <h1 class="text-center login-title">Banknote Production Reporting System</h1>
             <div class="account-wall">
 				<center>
 					<i class="fa fa-user fa-4x circle"></i>

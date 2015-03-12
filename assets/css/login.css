@@ -1,7 +1,17 @@
+body {
+	font-family: Lucida Grande, Verdana, Geneva, Sans-serif;
+	font-size: 12px;
+}
+
+img {
+	max-width: 350px; 
+	margin-top: 10px;
+}
+
 .form-signin
 {
     max-width: 330px;
-    padding: 15px;
+    padding: 10px;
     margin: 0 auto;
 }
 .form-signin .form-signin-heading, .form-signin .checkbox
@@ -15,7 +25,7 @@
 .form-signin .form-control
 {
     position: relative;
-    font-size: 16px;
+    font-size: 14px;
     height: auto;
     padding: 10px;
     -webkit-box-sizing: border-box;
@@ -51,7 +61,7 @@
 {
     color: #555;
     font-size: 18px;
-    font-weight: 400;
+    font-weight: 500;
     display: block;
 }
 .circle{
