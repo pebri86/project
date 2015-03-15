@@ -2,7 +2,7 @@
 <link href="<?php echo base_url("assets/css/dataTables.bootstrap.css"); ?>" rel="stylesheet">
 <div class="row">
 	<div class="col-lg-12">
-		<h1 class="content-header">Daftar Target Penyerahan</h1>
+		<h1 class="content-header">Daftar Rencana Produksi per Bulan</h1>
 		<hr />
 	</div>
 	<!-- /.col-lg-12 -->
@@ -40,37 +40,38 @@
 					</div>
 					<div class="col-md-3">
 						<div class="input-group input-group-sm input-group-filter">
-							<input type="text" id="denomId" class="form-control" placeholder="Pecahan">
+							<input type="text" id="section" class="form-control" placeholder="Seksi">
 							<span class="input-group-btn">
 								<div class="btn-group">
-									<button id="btnDenomSearch" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+									<button id="btnSectionSearch" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
 										<i class="fa fa-caret-down fa-fw"></i>
 									</button>
 									<ul class="dropdown-menu pull-right" role="menu">
 										<li>
-											<a href="#">T</a>
+											<a href="#">Action</a>
 										</li>
 										<li>
-											<a href="#">U</a>
+											<a href="#">Another action</a>
 										</li>
 										<li>
-											<a href="#">V</a>
+											<a href="#">Something else here</a>
 										</li>
 										<li>
-											<a href="#">W</a>
-										</li>
-										<li>
-											<a href="#">X</a>
-										</li>
-										<li>
-											<a href="#">Y</a>
+											<a href="#">Separated link</a>
 										</li>
 									</ul>
 								</div> </span>
 						</div>
+						<div class="input-group input-group-sm input-group-filter">
+							<input type="text" id="ord_submission" class="form-control" placeholder="No. Order Penyerahan">
+							<span class="input-group-btn">
+								<button id="btnSubSearch" class="btn btn-primary">
+									<i class="fa fa-search fa-fw"></i>
+								</button> </span>
+						</div>
 					</div>
 				</div>
-				<div class ="row" style="margin-top: 10px;">
+				<div class ="row">
 					<div class="col-md-2">
 						<button class="btn btn-primary btn-sm">
 							<i class="fa fa-search fa-fw"></i> Query
@@ -84,8 +85,8 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-info">
-			<div class="panel-heading clearfix">
-				<h5 class="panel-title"><i class="fa fa-calendar fa-lg fa-fw"></i>Target Penyerahan Perbulan</h5>
+			<div class="panel-heading">
+				<h5 class="panel-title"><i class="fa fa-calendar fa-lg fa-fw"></i>Target Rencana Produksi</h5>
 			</div>
 			<div class="panel-body">
 				<div role="tabpanel">
@@ -102,15 +103,12 @@
 					<!-- Tab panes -->
 					<div class="tab-content">
 						<div role="tabpanel" class="tab-pane active" id="list">
-							<p style="margin-top: 10px;">
-								<a id="addBtn" class="btn btn-primary btn-sm"><i class="fa  fa-plus-circle"></i> Tambah data</a>
-							</p>
-
-							<div class="table-responsive">
+							<div class="table-responsive" style="margin-top: 10px;">
 								<table class="table table-striped table-bordered table-hover" id="plan-table">
 									<thead>
 										<tr>
 											<th>No. Order</th>
+											<th>Pecahan</th>
 											<th>Bulan</th>
 											<th>Minggu 1</th>
 											<th>Minggu 2</th>
@@ -144,9 +142,12 @@
 </div>
 <script src="<?php echo base_url("assets/js/jquery.dataTables.js"); ?>" ></script>
 <script src="<?php echo base_url("assets/js/dataTables.bootstrap.js"); ?>" ></script>
-<script>
-	$(document).ready(function() {
-		var ptable = $('#plan-table').DataTable();
-		var histtable = $('#history-table').DataTable();
-	}); 
+<script language="JavaScript">
+	var ptable = $('#plan-table').DataTable();
+	var histtable = $('#history-table').DataTable();
+
+	function getYear(text) {
+		textYear = document.getElementById("year");
+		textYear.value = text;
+	};
 </script>

@@ -21,7 +21,7 @@
 
 		<!-- Custom Fonts -->
 		<link href="<?php echo base_url("assets/css/font-awesome.min.css"); ?>" rel="stylesheet" type="text/css">
-		
+
 		<!-- jQuery -->
 		<script src="<?php echo base_url("assets/js/jquery.min.js"); ?>" ></script>
 
@@ -234,37 +234,76 @@
 								<a href="#"><i class="fa fa-calendar fa-fw"></i> Perencanaan Produksi<span class="fa arrow"></span></a>
 								<ul class="nav nav-second-level">
 									<li>
-										<a href="#"></i> Rekap</a>
+										<a href="#"> Rekap</a>
 									</li>
 									<li>
-										<a href="submission"></i> Target Penyerahan</a>
+										<a href="submission"> Target Penyerahan</a>
 									</li>
 									<li>
-										<a href="#"></i>Target Produksi <span class="fa arrow sublevel"></span></a>
+										<a href="#">Target Produksi <span class="fa arrow sublevel"></span></a>
 										<ul class="nav nav-third-level">
 											<li>
-												<a href="#"> Cetak Rata</a>
+												<a href="production_plan"> Cetak Rata</a>
 											</li>
 											<li>
-												<a href="#"> Cetak Dalam</a>
+												<a href="production_plan"> Cetak Dalam</a>
 											</li>
 											<li>
-												<a href="#"> Cetak Nomor</a>
+												<a href="production_plan"> Cetak Nomor</a>
 											</li>
 											<li>
-												<a href="#"> Verifikasi Lembar Besar</a>
+												<a href="production_plan"> Verifikasi Lembar Besar</a>
 											</li>
 											<li>
-												<a href="#"> Penyelesaian Masinal</a>
+												<a href="production_plan"> Penyelesaian Masinal</a>
 											</li>
 											<li>
-												<a href="#"> Penyelesaian Darurat</a>
+												<a href="production_plan"> Penyelesaian Darurat</a>
 											</li>
 											<li>
-												<a href="#"> Produk Akhir</a>
+												<a href="production_plan"> Produk Akhir</a>
 											</li>
 										</ul>
 										<!-- /.nav-third-level -->
+								</ul>
+							</li>
+							<li>
+								<a href="#"><i class="fa fa-book fa-fw"></i> Khazanah Cetak<span class="fa arrow"></span></a>
+								<ul class="nav nav-second-level">
+									<li>
+										<a href="#"> Rekap</a>
+									</li>
+									<li>
+										<a href="#"> Penerimaan LKU</a>
+									</li>
+									<li>
+										<a href="#"> Cetak Rata<span class="fa arrow sublevel"></span></a>
+										<ul class="nav nav-third-level">
+											<li>
+												<a href="#"> Persediaan LKU</a>
+											</li>
+											<li>
+												<a href="#"> Pengiriman</a>
+											</li>
+											<li>
+												<a href="#"> HCTS</a>
+											</li>
+										</ul>
+									</li>
+									<li>
+										<a href="#"> Cetak Dalam<span class="fa arrow sublevel"></a>
+											<ul class="nav nav-third-level">
+											<li>
+												<a href="#"> Persediaan LKU</a>
+											</li>
+											<li>
+												<a href="#"> Pengiriman</a>
+											</li>
+											<li>
+												<a href="#"> HCTS</a>
+											</li>
+										</ul>
+									</li>
 								</ul>
 							</li>
 						</ul>
@@ -276,6 +315,8 @@
 
 			<div id="page-wrapper">
 				<?=$content ?>
+				<!--<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</p>-->
+				<p class="footer">Research and Development Departement - Perum Percetakan Uang Republik Indonesia &copy 2015  </p>
 			</div>
 			<!-- /#page-wrapper -->
 
