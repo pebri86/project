@@ -30,7 +30,7 @@
 										<?php
 										$currentYear = date('Y');
 										foreach (range($currentYear - 2, $currentYear + 5) as $value) {
-											echo "<li><a id=\"" . $value . "\" onclick=\"getYear(this.id)\">" . $value . "</a></li>\n ";
+											echo "<li><a onclick=\"getYear(this.innerHTML)\">" . $value . "</a></li>\n ";
 
 										}
 										?>
@@ -40,7 +40,7 @@
 					</div>
 					<div class="col-md-3">
 						<div class="input-group input-group-sm input-group-filter">
-							<input type="text" id="section" class="form-control" placeholder="Seksi">
+							<input type="text" id="section" class="form-control" placeholder="Bagan" value="<?=$orgName ?>">
 							<span class="input-group-btn">
 								<div class="btn-group">
 									<button id="btnSectionSearch" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">

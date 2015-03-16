@@ -8,12 +8,80 @@
 	<!-- /.col-lg-12 -->
 </div>
 <!-- /.row -->
+<div id="myModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 id="dialog-title" class="modal-title">Target Penyerahan</h4>
+			</div>
+			<div class="modal-body">
+				<span id="message"></span>
+				<form class="form custom-form" role="form" method="post" action="<?php echo base_url("index.php/submission/update"); ?>">
+					<div class="row">
+						<div class="col-md-6">
+							<a class="badge pull-right" >Target Information</a>
+							<hr />
+							<div class="form-group form-group-sm">
+								<label for="year">Tahun </label>
+								<input type="text" class="form-control" id="year" readonly="">
+							</div>
+							<div class="form-group form-group-sm">
+								<label for="order">No. Order </label>
+								<input type="text" class="form-control" id="order" >
+							</div>
+							<div class="form-group form-group-sm">
+								<label for="denom">Pecahan </label>
+								<input type="text" class="form-control" id="denom" readonly="">
+							</div>
+							<div class="form-group form-group-sm">
+								<label for="month">Bulan </label>
+								<input type="text" class="form-control" id="month" readonly="">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<a class="badge pull-right" >Target Amounts</a>
+							<hr />
+							<div class="form-group form-group-sm">
+								<label for="m1">Minggu 1 </label>
+								<input type="number" class="form-control" value="0" onkeyup="calcAmount()" id="m1" >
+							</div>
+							<div class="form-group form-group-sm">
+								<label for="m1">Minggu 2 </label>
+								<input type="number" class="form-control" value="0" onkeyup="calcAmount()" id="m2" >
+							</div>
+							<div class="form-group form-group-sm">
+								<label for="m1">Minggu 3 </label>
+								<input type="number" class="form-control" value="0" onkeyup="calcAmount()" id="m3" >
+							</div>
+							<div class="form-group form-group-sm">
+								<label for="m1">Minggu 4 </label>
+								<input type="number" class="form-control" value="0" onkeyup="calcAmount()" id="m4" >
+							</div>
+							<div class="form-group form-group-sm">
+								<label for="amnth">Jumlah </label>
+								<input type="number" class="form-control" id="amnth" readonly="">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary pull-right">
+							<i class"fa fa-send fa-fw"></i>Submit
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-danger">
 			<!--
 			<div class="panel-heading">
-				<h6 class="panel-title"><i class="fa fa-search fa-lg fa-fw"></i>Filter</h6>
+			<h6 class="panel-title"><i class="fa fa-search fa-lg fa-fw"></i>Filter</h6>
 			</div>
 			-->
 			<div class="panel-body">
@@ -30,7 +98,7 @@
 										<?php
 										$currentYear = date('Y');
 										foreach (range($currentYear - 2, $currentYear + 5) as $value) {
-											echo "<li><a id=\"" . $value . "\" onclick=\"getYear(this.id)\">" . $value . "</a></li>\n ";
+											echo "<li><a onclick=\"getYear(this.innerHTML)\">" . $value . "</a></li>\n ";
 
 										}
 										?>
@@ -145,8 +213,15 @@
 <script src="<?php echo base_url("assets/js/jquery.dataTables.js"); ?>" ></script>
 <script src="<?php echo base_url("assets/js/dataTables.bootstrap.js"); ?>" ></script>
 <script>
-	$(document).ready(function() {
-		var ptable = $('#plan-table').DataTable();
-		var histtable = $('#history-table').DataTable();
+	var ptable = $('#plan-table').DataTable();
+	var histtable = $('#history-table').DataTable();
+
+	function getYear(text) {
+		textYear = document.getElementById("year");
+		textYear.value = text;
+	};
+
+	$('#addBtn').click(function() {
+		$('#myModal').modal('show');
 	}); 
 </script>

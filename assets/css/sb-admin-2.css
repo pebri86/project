@@ -42,6 +42,11 @@ p.footer {
 	margin-top: 5px;
 }
 
+.custom-form {
+	font-family : "Trebuchet Ms";
+	font-size : 13px;
+}
+
 .navbar-top-links {
 	margin-right: 0;
 }

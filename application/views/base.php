@@ -237,31 +237,31 @@
 										<a href="#"> Rekap</a>
 									</li>
 									<li>
-										<a href="submission"> Target Penyerahan</a>
+										<a href="<?php echo base_url("index.php/submission");?>"> Target Penyerahan</a>
 									</li>
 									<li>
 										<a href="#">Target Produksi <span class="fa arrow sublevel"></span></a>
 										<ul class="nav nav-third-level">
 											<li>
-												<a href="production_plan"> Cetak Rata</a>
+												<a href="<?php echo base_url("index.php/production_plan/page/1");?>"> Cetak Rata</a>
 											</li>
 											<li>
-												<a href="production_plan"> Cetak Dalam</a>
+												<a href="<?php echo base_url("index.php/production_plan/page/2");?>"> Cetak Dalam</a>
 											</li>
 											<li>
-												<a href="production_plan"> Cetak Nomor</a>
+												<a href="<?php echo base_url("index.php/production_plan/page/3");?>"> Cetak Nomor</a>
 											</li>
 											<li>
-												<a href="production_plan"> Verifikasi Lembar Besar</a>
+												<a href="<?php echo base_url("index.php/production_plan/page/4");?>"> Verifikasi Lembar Besar</a>
 											</li>
 											<li>
-												<a href="production_plan"> Penyelesaian Masinal</a>
+												<a href="<?php echo base_url("index.php/production_plan/page/5");?>"> Penyelesaian Masinal</a>
 											</li>
 											<li>
-												<a href="production_plan"> Penyelesaian Darurat</a>
+												<a href="<?php echo base_url("index.php/production_plan/page/6");?>"> Penyelesaian Darurat</a>
 											</li>
 											<li>
-												<a href="production_plan"> Produk Akhir</a>
+												<a href="<?php echo base_url("index.php/production_plan/page/7");?>"> Produk Akhir</a>
 											</li>
 										</ul>
 										<!-- /.nav-third-level -->
