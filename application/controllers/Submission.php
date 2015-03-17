@@ -19,17 +19,20 @@ class Submission extends CI_Controller {
 	}
 
 	function index() {
-		$this->load->helper('url');
-		$data['content'] = $this->load->view('planner/submission','',true);
-		$this->load->view('base',$data);
+		$this -> load -> helper('url');
+		$this -> load -> model('DenomModel');
+		$denom['denom_list'] = $this -> DenomModel -> get_list();
+		$data['content'] = $this -> load -> view('planner/submission', $denom, true);
+		$this -> load -> view('base', $data);
 	}
-	
+
 	function entry($id) {
-		$this->load->helper('url');
-		
-		$data['content'] = $this->load->view('planner/submission_entry','',true);
-		$this->load->view('base',$data);
+		$this -> load -> helper('url');
+
+		$data['content'] = $this -> load -> view('planner/submission_entry', '', true);
+		$this -> load -> view('base', $data);
 	}
+
 }
 
 // END Controller Class

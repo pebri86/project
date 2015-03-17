@@ -21,12 +21,12 @@
 				<span id="message"></span>
 				<form class="form custom-form" role="form" method="post" action="<?php echo base_url("index.php/submission/update"); ?>">
 					<div class="row">
-						<div class="col-md-6">
+						<div class="col-md-7">
 							<a class="badge pull-right" >Target Information</a>
 							<hr />
 							<div class="form-group form-group-sm">
 								<label for="year">Tahun </label>
-								<input type="text" class="form-control" id="year" readonly="">
+								<input type="text" class="form-control" id="yearm" readonly="">
 							</div>
 							<div class="form-group form-group-sm">
 								<label for="order">No. Order </label>
@@ -41,7 +41,7 @@
 								<input type="text" class="form-control" id="month" readonly="">
 							</div>
 						</div>
-						<div class="col-md-6">
+						<div class="col-md-5">
 							<a class="badge pull-right" >Target Amounts</a>
 							<hr />
 							<div class="form-group form-group-sm">
@@ -85,66 +85,56 @@
 			</div>
 			-->
 			<div class="panel-body">
-				<div class="row">
-					<div class="col-md-3">
-						<div class="input-group input-group-sm input-group-filter">
-							<input type="text" id="year" class="form-control" placeholder="Tahun">
-							<span class="input-group-btn">
-								<div class="btn-group">
-									<button id="btnYearSearch" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
-										<i class="fa fa-caret-down fa-fw"></i>
-									</button>
-									<ul class="dropdown-menu pull-right" role="menu">
-										<?php
-										$currentYear = date('Y');
-										foreach (range($currentYear - 2, $currentYear + 5) as $value) {
-											echo "<li><a onclick=\"getYear(this.innerHTML)\">" . $value . "</a></li>\n ";
+				<form class="form" role="form" method="post" action="<?php echo base_url("index.php/submission/getlist"); ?>">
+					<div class="row">
+						<div class="col-md-3">
+							<div class="input-group input-group-sm input-group-filter">
+								<input type="text" id="year" class="form-control" placeholder="Tahun">
+								<span class="input-group-btn">
+									<div class="btn-group">
+										<button id="btnYearSearch" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+											<i class="fa fa-caret-down fa-fw"></i>
+										</button>
+										<ul class="dropdown-menu pull-right" role="menu">
+											<?php
+											$currentYear = date('Y');
+											foreach (range($currentYear - 2, $currentYear + 5) as $value) {
+												echo "<li><a onclick=\"getYear(this.innerHTML)\">" . $value . "</a></li>\n ";
 
-										}
-										?>
-									</ul>
-								</div> </span>
+											}
+											?>
+										</ul>
+									</div> </span>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="input-group input-group-sm input-group-filter">
+								<input type="hidden" id="denomId">
+								<input type="text" id="denomCode" class="form-control" placeholder="Pecahan">
+								<span class="input-group-btn">
+									<div class="btn-group">
+										<button id="btnDenomSearch" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+											<i class="fa fa-caret-down fa-fw"></i>
+										</button>
+										<ul class="dropdown-menu pull-right" role="menu">
+											<?php
+											foreach ($denom_list as $denom_code) {
+												echo "<li><a id=\"" . $denom_code -> DenomID . "\" onclick=\"getDenom(this.id,this.innerHTML)\">" . $denom_code -> DenomCode . "</a></li>\n";
+											}
+											?>
+										</ul>
+									</div> </span>
+							</div>
 						</div>
 					</div>
-					<div class="col-md-3">
-						<div class="input-group input-group-sm input-group-filter">
-							<input type="text" id="denomId" class="form-control" placeholder="Pecahan">
-							<span class="input-group-btn">
-								<div class="btn-group">
-									<button id="btnDenomSearch" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
-										<i class="fa fa-caret-down fa-fw"></i>
-									</button>
-									<ul class="dropdown-menu pull-right" role="menu">
-										<li>
-											<a href="#">T</a>
-										</li>
-										<li>
-											<a href="#">U</a>
-										</li>
-										<li>
-											<a href="#">V</a>
-										</li>
-										<li>
-											<a href="#">W</a>
-										</li>
-										<li>
-											<a href="#">X</a>
-										</li>
-										<li>
-											<a href="#">Y</a>
-										</li>
-									</ul>
-								</div> </span>
+					<div class ="row" style="margin-top: 10px;">
+						<div class="col-md-2">
+							<button type="submit" class="btn btn-primary btn-sm">
+								<i class="fa fa-search fa-fw"></i> Query
+							</button>
 						</div>
 					</div>
-				</div>
-				<div class ="row" style="margin-top: 10px;">
-					<div class="col-md-2">
-						<button class="btn btn-primary btn-sm">
-							<i class="fa fa-search fa-fw"></i> Query
-						</button>
-					</div>
-				</div>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -221,7 +211,23 @@
 		textYear.value = text;
 	};
 
+	function getDenom(id, text) {
+		textDenomCode = document.getElementById("denomCode");
+		textDenomID = document.getElementById("denomId");
+		textDenomCode.value = text;
+		textDenomID.value = id;
+	};
+
 	$('#addBtn').click(function() {
 		$('#myModal').modal('show');
-	}); 
+	});
+
+	function calcAmount() {
+		var m1_val = parseInt(document.getElementById("m1").value);
+		var m2_val = parseInt(document.getElementById("m2").value);
+		var m3_val = parseInt(document.getElementById("m3").value);
+		var m4_val = parseInt(document.getElementById("m4").value);
+		var amnth_val = document.getElementById("amnth");
+		amnth_val.value = m1_val + m2_val + m3_val + m4_val;
+	};
 </script>
