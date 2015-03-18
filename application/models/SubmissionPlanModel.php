@@ -23,13 +23,6 @@ class SubmissionPlanModel extends CI_Model {
 		return $query -> result();
 	}
 
-	function init_data($data) {
-		for ($i = 1; $i <= 12; $i++) {
-			$data = array('Year' => $data['Year'], 'DenomID' => $data['DenomID'], 'Mnth' => $i);
-			$this -> db -> insert('SubmissionPlan', $data);
-		}
-	}
-
 	function insert($data) {
 		$this -> db -> insert('SubmissionPlan', $data);
 	}
