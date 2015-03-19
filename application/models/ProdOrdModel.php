@@ -31,7 +31,7 @@ class ProdOrdModel extends CI_Model {
 		parent::__construct();
 	}
 	
-	function ProdOrdModel($table){
+	function set_table_name($table){
 		$this->table = $table;
 	}
 

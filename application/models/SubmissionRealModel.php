@@ -24,14 +24,6 @@ if (!defined('BASEPATH'))
  */
 
 class SubmissionRealModel extends CI_Model {
-	var $SubmissionRealID = '';
-	var $SubmissionPlanID = '';
-	var $Mnth = '';
-	var $M1 = '';
-	var $M2 = '';
-	var $M3 = '';
-	var $M4 = '';
-	var $Amnth = '';
 
 	function __construct() {
 		// Call the Model constructor
@@ -43,30 +35,12 @@ class SubmissionRealModel extends CI_Model {
 		return $query -> result();
 	}
 
-	function insert() {
-		$this -> SubmissionRealID = $_POST['SubmissionRealID'];
-		$this -> SubmissionPlanID = $_POST['SubmissionPlanID'];
-		$this -> Mnth = $_POST['Mnth'];
-		$this -> M1 = $_POST['M1'];
-		$this -> M2 = $_POST['M2'];
-		$this -> M3 = $_POST['M3'];
-		$this -> M4 = $_POST['M4'];
-		$this -> Amnth = $_POST['Amnth'];
-
-		$this -> db -> insert('SubmissionReal', $this);
+	function insert($data) {
+		$this -> db -> insert('SubmissionReal', $data);
 	}
 
-	function update() {
-		$this -> SubmissionRealID = $_POST['SubmissionRealID'];
-		$this -> SubmissionPlanID = $_POST['SubmissionPlanID'];
-		$this -> Mnth = $_POST['Mnth'];
-		$this -> M1 = $_POST['M1'];
-		$this -> M2 = $_POST['M2'];
-		$this -> M3 = $_POST['M3'];
-		$this -> M4 = $_POST['M4'];
-		$this -> Amnth = $_POST['Amnth'];
-
-		$this -> db -> update('SubmissionReal', $this, array('SubmissionRealID' => $_POST['SubmissionRealID']));
+	function update($data) {
+		$this -> db -> update('SubmissionReal', $data, array('SubmissionRealID' => $data['SubmissionRealID']));
 	}
 
 }

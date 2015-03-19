@@ -23,6 +23,11 @@ class DenomModel extends CI_Model {
 		$query = $this -> db ->get('Denom');
 		return $query->result();
 	}
+	
+	function get_denom_code($id) {
+		$query = $this -> db ->get_where('Denom', array('DenomID' => $id));
+		return $query->result();
+	}
 }
 
 // END Model Class

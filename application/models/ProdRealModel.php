@@ -25,25 +25,13 @@ if (!defined('BASEPATH'))
 
 class ProdRealModel extends CI_Model {
 	var $table = '';
-	var $ProdRealID = '';
-	var $ProdOrdID = '';
-	var $Mnth = '';
-	var $ShtM1 = '';
-	var $ShtM2 = '';
-	var $ShtM3 = '';
-	var $ShtM4 = '';
-	var $NoteM1 = '';
-	var $NoteM2 = '';
-	var $NoteM3 = '';
-	var $NoteM4 = '';
-	var $Amnth = '';
 
 	function __construct() {
 		// Call the Model constructor
 		parent::__construct();
 	}
 	
-	function ProdRealModel($table){
+	function set_table_name($table){
 		$this->table = $table;
 	}
 
@@ -52,38 +40,12 @@ class ProdRealModel extends CI_Model {
 		return $query -> result();
 	}
 
-	function insert() {
-		$this -> ProdRealID = $_POST['ProdRealID'];
-		$this -> ProdOrdID = $_POST['ProdOrdID'];
-		$this -> Mnth = $_POST['Mnth'];
-		$this -> ShtM1 = $_POST['ShtM1'];
-		$this -> ShtM2 = $_POST['ShtM2'];
-		$this -> ShtM3 = $_POST['ShtM3'];
-		$this -> ShtM4 = $_POST['ShtM4'];
-		$this -> NoteM1 = $_POST['NoteM1'];
-		$this -> NoteM2 = $_POST['NoteM2'];
-		$this -> NoteM3 = $_POST['NoteM3'];
-		$this -> NoteM4 = $_POST['NoteM4'];
-		$this -> Amnth = $_POST['Amnth'];
-
-		$this -> db -> insert($this->table, $this);
+	function insert($data) {
+		$this -> db -> insert($this->table, $data);
 	}
 
-	function update() {
-		$this -> ProdRealID = $_POST['ProdRealID'];
-		$this -> ProdOrdID = $_POST['ProdOrdID'];
-		$this -> Mnth = $_POST['Mnth'];
-		$this -> ShtM1 = $_POST['ShtM1'];
-		$this -> ShtM2 = $_POST['ShtM2'];
-		$this -> ShtM3 = $_POST['ShtM3'];
-		$this -> ShtM4 = $_POST['ShtM4'];
-		$this -> NoteM1 = $_POST['NoteM1'];
-		$this -> NoteM2 = $_POST['NoteM2'];
-		$this -> NoteM3 = $_POST['NoteM3'];
-		$this -> NoteM4 = $_POST['NoteM4'];
-		$this -> Amnth = $_POST['Amnth'];
-		
-		$this -> db -> update($this->table, $this, array('ProdRealID' => $_POST['ProdRealID']));
+	function update() {		
+		$this -> db -> update($this->table, $data, array('ProdRealID' => $data['ProdRealID']));
 	}
 
 }

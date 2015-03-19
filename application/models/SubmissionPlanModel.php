@@ -24,11 +24,11 @@ class SubmissionPlanModel extends CI_Model {
 	}
 
 	function insert($data) {
-		$this -> db -> insert('SubmissionPlan', $data);
+		$this -> db -> insert('SubmissionPlan', $data); 
 	}
 
 	function update($data) {
-		$this -> db -> update('SubmissionPlan', $this, array('SubmissionPlanID' => $data['SubmissionPlanID']));
+		$this -> db -> update('SubmissionPlan', $data, array('SubmissionPlanID' => $data['SubmissionPlanID']));
 	}
 
 }

@@ -18,62 +18,64 @@
 				<h4 id="dialog-title" class="modal-title">Target Penyerahan</h4>
 			</div>
 			<div class="modal-body">
-				<span id="message"></span>
-				<form class="form custom-form" role="form" method="post" action="<?php echo base_url("index.php/submission/update"); ?>">
+				<span id="message"></span>				
 					<div class="row">
+						<form class="form custom-form" role="form" id="dialogForm">
 						<div class="col-md-7">
 							<a class="badge pull-right" >Target Information</a>
 							<hr />
 							<div class="form-group form-group-sm">
 								<label for="year">Tahun </label>
-								<input type="text" class="form-control" id="yearm" readonly="">
+								<input type="text" class="form-control" name="yearm" id="yearm" readonly="">
+								<input type="hidden" name="SubmissionPlanID" id="SubmissionPlanID">
 							</div>
 							<div class="form-group form-group-sm">
 								<label for="order">No. Order </label>
-								<input type="text" class="form-control" id="order" >
+								<input type="text" class="form-control" name="OrderNo" id="OrderNo" >
 							</div>
 							<div class="form-group form-group-sm">
 								<label for="denom">Pecahan </label>
 								<input type="text" class="form-control" id="denom-v" readonly="">
-								<input type="hidden" id="denom">
+								<input type="hidden" name="denom" id="denom">
 							</div>
 							<div class="form-group form-group-sm">
 								<label for="month">Bulan </label>
 								<input type="text" class="form-control" id="month-v" readonly="">
-								<input type="hidden" id="month">
+								<input type="hidden" id="Mnth">
 							</div>
+							<p class="text-warning pull-left"> * Semua kolom harus diisi.</p>
 						</div>
 						<div class="col-md-5">
 							<a class="badge pull-right" >Target Amounts</a>
 							<hr />
 							<div class="form-group form-group-sm">
 								<label for="m1">Minggu 1 </label>
-								<input type="number" class="form-control" value="0" onkeyup="calcAmount()" id="m1" >
+								<input type="number" class="form-control" value="0" onkeyup="calcAmount()" name="M1" id="M1" >
 							</div>
 							<div class="form-group form-group-sm">
 								<label for="m1">Minggu 2 </label>
-								<input type="number" class="form-control" value="0" onkeyup="calcAmount()" id="m2" >
+								<input type="number" class="form-control" value="0" onkeyup="calcAmount()" name="M2" id="M2" >
 							</div>
 							<div class="form-group form-group-sm">
 								<label for="m1">Minggu 3 </label>
-								<input type="number" class="form-control" value="0" onkeyup="calcAmount()" id="m3" >
+								<input type="number" class="form-control" value="0" onkeyup="calcAmount()" name="M3" id="M3" >
 							</div>
 							<div class="form-group form-group-sm">
 								<label for="m1">Minggu 4 </label>
-								<input type="number" class="form-control" value="0" onkeyup="calcAmount()" id="m4" >
+								<input type="number" class="form-control" value="0" onkeyup="calcAmount()" name="M4" id="M4" >
 							</div>
 							<div class="form-group form-group-sm">
 								<label for="amnth">Jumlah </label>
-								<input type="number" class="form-control" id="amnth" readonly="">
+								<input type="number" class="form-control" name="Amnth" id="Amnth" readonly="">
 							</div>
-						</div>
-					</div>
+						</div>		
+						</form>		
+					</div>					
 					<div class="modal-footer">
-						<button type="submit" class="btn btn-primary pull-right">
+						<button id="submitBtn" class="btn btn-primary pull-right">
 							<i class"fa fa-send fa-fw"></i>Submit
 						</button>
-					</div>
-				</form>
+					</div>		
 			</div>
 		</div>
 	</div>
@@ -209,11 +211,12 @@
 	var year = $('#year').val();
 	var denom = $('#denomId').val();
 	var ptable;
-	if(year != "" && denom != ""){
+	if(year != "" || denom != ""){
 		ptable = $('#plan-table').dataTable({
 				"bProcessing": true,
             	"bServerSide": false,
             	"sAjaxSource": "<?php echo base_url('index.php/submission/datatable'); ?>/"+year+"/"+denom,
+            	"order": [[ 7, "asc" ]],
             	"columns" : [{
 			"data" : "OrderNo"
 		}, {
@@ -243,6 +246,7 @@
 		ptable = $('#plan-table').dataTable({
 		"bProcessing": true,
         "bServerSide": false,
+        "order": [[ 7, "asc" ]],
         "columns" : [{
 			"data" : "OrderNo"
 		}, {
@@ -283,13 +287,48 @@
 	
 	$('#editBtn').click(function() {
 		var rowData = ptable.api().row('.active').data();
+		$('#SubmissionPlanID').val(rowData.SubmissionPlanID);
 		$('#month').val(rowData.Mnth);
 		$('#month-v').val(getMonthName(rowData.Mnth));
 		$('#yearm').val($('#year').val());
 		$('#denom').val($('#denomId').val());
 		$('#denom-v').val($('#denomCode').val());
+		$('#OrderNo').val(rowData.OrderNo);
+		$('#M1').val(rowData.M1);
+		$('#M2').val(rowData.M2);
+		$('#M3').val(rowData.M3);
+		$('#M4').val(rowData.M4);
+		$('#Amnth').val(rowData.Amnth);
 		$('#myModal').modal('show');
 	});
+	
+	$('#submitBtn').click(function() {
+		var st_process = '<div class="alert alert-success" role="alert"><i class="fa fa-spinner fa-spin"></i> Request sedang diproses...</div>';
+		var st_success = '<div class="alert alert-success" role="alert"><strong>Success!</strong> berhasil diproses.</div>';
+		var st_error = '<div class="alert alert-danger" role="alert"><strong>Perhatian!</strong> terjadi kesalahan.</div>';
+		$.ajax({
+				url : "<?php echo base_url('index.php/submission/update_data'); ?>",
+				type : "POST",
+				data: $('#dialogForm').serialize(),
+				dataType : "json",
+				success : function(data) {
+					if (data.error == false) {																			
+						$('#myModal').modal('hide');
+						$("#errMsg").html(st_success);
+						var delay = 1000;
+						setTimeout(function() {	
+							ptable.api().ajax.reload();
+							$('#errMsg').html('');
+						}, delay);
+					} else {
+						$("#errMsg").html(st_error);
+					}
+				},
+				beforeSend : function(xhr) {
+					$("#errMsg").html(st_process);
+				}
+			});
+	});	
 	
 	getMonthName = function (v) {
     	var n = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -309,31 +348,57 @@
 	};
 
 	$('#addBtn').click(function() {
-		$('#myModal').modal('show');
-	});
-	
-	
+		if(ptable.fnGetData().length == 0){
+		year = $('#year').val();
+		denom = $('#denomId').val();
+		var st_process = '<div class="alert alert-success" role="alert"><i class="fa fa-spinner fa-spin"></i> Request sedang diproses...</div>';
+		var st_success = '<div class="alert alert-success" role="alert"><strong>Success!</strong> berhasil diproses.</div>';
+		var st_error = '<div class="alert alert-danger" role="alert"><strong>Perhatian!</strong> terjadi kesalahan.</div>';
+		$.ajax({
+				url : "<?php echo base_url('index.php/submission/add_data'); ?>",
+				type : "POST",
+				data: { Year: year, DenomID: denom },
+				dataType : "json",
+				success : function(data) {
+					if (data.error == false) {
+						$("#errMsg").html(st_success);
+						var delay = 1000;
+						setTimeout(function() {
+							ptable.api().ajax.reload();
+							$('#errMsg').html('');
+						}, delay);
+					} else {
+						$("#errMsg").html(st_error);
+					}
+				},
+				beforeSend : function(xhr) {
+					$("#errMsg").html(st_process);
+				}
+			});
+		}else{
+			$("#errMsg").html('<div class="alert alert-danger" role="alert"><strong>Perhatian!</strong> Data sudah ada.</div>');
+		}
+	});	
 	
 	$('#queryBtn').click(function(){
 		year = $('#year').val();
 		denom = $('#denomId').val();
-		if(year == "" && denom == ""){
+		if(year == "" || denom == ""){
 			$('#errMsg').html('<div class="alert alert-danger" role="alert"><strong>Error!</strong> Filter tahun dan pecahan tidak boleh kosong.</div>');
 		}else{
 			var oSettings = ptable.fnSettings();
 			oSettings.sAjaxSource  = "<?php echo base_url('index.php/submission/datatable'); ?>/"+year+"/"+denom;
 			ptable.api().ajax.reload();
-			alert('success');
 			$('#errMsg').html('');
 		}
 	});
 
 	function calcAmount() {
-		var m1_val = parseInt(document.getElementById("m1").value);
-		var m2_val = parseInt(document.getElementById("m2").value);
-		var m3_val = parseInt(document.getElementById("m3").value);
-		var m4_val = parseInt(document.getElementById("m4").value);
-		var amnth_val = document.getElementById("amnth");
+		var m1_val = parseInt(document.getElementById("M1").value);
+		var m2_val = parseInt(document.getElementById("M2").value);
+		var m3_val = parseInt(document.getElementById("M3").value);
+		var m4_val = parseInt(document.getElementById("M4").value);
+		var amnth_val = document.getElementById("Amnth");
 		amnth_val.value = m1_val + m2_val + m3_val + m4_val;
 	};
 </script>
