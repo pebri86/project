@@ -13,7 +13,7 @@
 		<div class="panel panel-danger">
 			<!--
 			<div class="panel-heading">
-				<h6 class="panel-title"><i class="fa fa-search fa-lg fa-fw"></i>Filter</h6>
+			<h6 class="panel-title"><i class="fa fa-search fa-lg fa-fw"></i>Filter</h6>
 			</div>
 			-->
 			<div class="panel-body">
@@ -40,45 +40,43 @@
 					</div>
 					<div class="col-md-3">
 						<div class="input-group input-group-sm input-group-filter">
-							<input type="text" id="section" class="form-control" placeholder="Bagan" value="<?=$orgName ?>">
+							<input type="hidden" id="orgCode" class="form-control" placeholder="Bagan" value="<?=$orgCode ?>">
+							<input type="text" id="orgName" class="form-control" placeholder="Bagan" value="<?=$orgName ?>">
 							<span class="input-group-btn">
 								<div class="btn-group">
 									<button id="btnSectionSearch" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
 										<i class="fa fa-caret-down fa-fw"></i>
 									</button>
 									<ul class="dropdown-menu pull-right" role="menu">
-										<li>
-											<a href="#">Action</a>
-										</li>
-										<li>
-											<a href="#">Another action</a>
-										</li>
-										<li>
-											<a href="#">Something else here</a>
-										</li>
-										<li>
-											<a href="#">Separated link</a>
-										</li>
+										<?php
+										foreach ($bagan_list as $bagan) {
+											echo "<li><a id=\"" . $bagan -> OrgCode . "\" onclick=\"getBagan(this.id,this.innerHTML)\">" . $bagan -> OrgName . "</a></li>\n";
+										}
+										?>
 									</ul>
 								</div> </span>
 						</div>
 						<div class="input-group input-group-sm input-group-filter">
 							<input type="text" id="ord_submission" class="form-control" placeholder="No. Order Penyerahan">
 							<span class="input-group-btn">
-								<button id="btnSubSearch" class="btn btn-primary">
-									<i class="fa fa-search fa-fw"></i>
-								</button> </span>
+								<div class="btn-group">
+									<button id="btnSubSearch" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+										<i class="fa fa-search fa-fw"></i>
+									</button>
+									<ul id="orderlist" class="dropdown-menu pull-right" role="menu">
+
+									</ul>
+								</div> </span>
 						</div>
 					</div>
-				</div>
-				<div class ="row">
 					<div class="col-md-2">
-						<button class="btn btn-primary btn-sm">
+						<button id="queryBtn" class="btn btn-primary btn-sm input-group-filter">
 							<i class="fa fa-search fa-fw"></i> Query
 						</button>
 					</div>
 				</div>
 			</div>
+			<div class ="row"></div>
 		</div>
 	</div>
 </div>
@@ -107,7 +105,11 @@
 								<table class="table table-striped table-bordered table-hover" id="plan-table">
 									<thead>
 										<tr>
+											<th>ID</th>
+											<th>SubmissionPlanID</th>
+											<th>OrgCode</th>
 											<th>No. Order</th>
+											<th>ID_Pecahan</th>
 											<th>Pecahan</th>
 											<th>Bulan</th>
 											<th>Minggu 1</th>
@@ -115,7 +117,6 @@
 											<th>Minggu 3</th>
 											<th>Minggu 4</th>
 											<th>Jumlah</th>
-											<th>Action</th>
 										</tr>
 									</thead>
 								</table>
@@ -143,11 +144,95 @@
 <script src="<?php echo base_url("assets/js/jquery.dataTables.js"); ?>" ></script>
 <script src="<?php echo base_url("assets/js/dataTables.bootstrap.js"); ?>" ></script>
 <script language="JavaScript">
-	var ptable = $('#plan-table').DataTable();
+		var ptable = $('#plan-table').dataTable({
+	"bProcessing" : true,
+	"bServerSide" : false,
+	"order" : [[7, "asc"]],
+	"columns" : [{
+	"data" : "ProdOrdID",
+	"visible" : false
+	}, {
+	"data" : "SubmissionPlanID",
+	"visible" : false
+	}, {
+	"data" : "OrgCode",
+	"visible" : false
+	}, {
+	"data" : "OrderNo"
+	}, {
+	"data" : "DenomID",
+	"visible" : false
+	}, {
+	"data" : "DenomCode"
+	}, {
+	"data" : "Mnth",
+	"render" : function(data, type, row) {
+	return getMonthName(data);
+	}
+	}, {
+	"data" : "ShtM1"
+	}, {
+	"data" : "ShtM2"
+	}, {
+	"data" : "ShtM3"
+	}, {
+	"data" : "ShtM4"
+	}, {
+	"data" : "Amnth"
+	}]
+	});
+
 	var histtable = $('#history-table').DataTable();
 
 	function getYear(text) {
-		textYear = document.getElementById("year");
-		textYear.value = text;
+	textYear = document.getElementById("year");
+	textYear.value = text;
+	update_order_list(text,$('#orgCode').val());
 	};
+
+	function getBagan(id, text) {
+	textOrgCode = document.getElementById("orgCode");
+	textOrgName = document.getElementById("orgName");
+	textOrgCode.value = id;
+	textOrgName.value = text;
+	update_order_list($('#year').val(),id);
+	};
+	
+	function getOrder(text){
+		document.getElementById("ord_submission").value = text;
+	}
+
+	function update_order_list(txtYear, txtBagan) {
+	$.ajax({
+	url : "<?php echo base_url('index.php/submission/get_order_list'); ?>
+		/"+txtYear+"/"+txtBagan,
+		type : "POST",
+		dataType : "json",
+		success : function(data) {
+		$('#orderlist').html('');
+		for(x=0;x<data.data.length;x++){
+		$('#orderlist').append('<li><a onclick="getOrder(this.innerHTML)">'+ data.data[x].OrderNo+'</a></li>\n');
+		}
+		}
+		});
+		}
+		
+	getMonthName = function (v) {
+    	var n = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    	return n[v]
+	}
+		
+	$('#queryBtn').click(function(){
+		orgCode = $('#orgCode').val();
+		year = $('#year').val();
+		ordSub = (($('#ord_submission').val() == '' ) ? "0" : $('#ord_submission').val());
+		if(orgCode == "" || year == "" || ordSub == ""){
+			$('#errMsg').html('<div class="alert alert-danger" role="alert"><strong>Error!</strong> Filter tidak boleh kosong.</div>');
+		}else{
+			var oSettings = ptable.fnSettings();
+			oSettings.sAjaxSource  = "<?php echo base_url('index.php/production_plan/datatable'); ?>/"+orgCode+"/"+ordSub;
+			ptable.api().ajax.reload();
+			$('#errMsg').html('');
+		}
+	});
 </script>

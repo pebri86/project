@@ -13,22 +13,31 @@ if (!defined('BASEPATH'))
  */
 
 class SubmissionPlanModel extends CI_Model {
-	
+
 	function __construct() {
 		parent::__construct();
 	}
 
 	function get_record($Year) {
-		$query = $this -> db ->get_where('SubmissionPlan', array('Year' => $Year));
+		$query = $this -> db -> get_where('SubmissionPlan', array('Year' => $Year));
 		return $query -> result();
 	}
 
 	function insert($data) {
-		$this -> db -> insert('SubmissionPlan', $data); 
+		if ($this -> db -> insert('SubmissionPlan', $data)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	function update($data) {
 		$this -> db -> update('SubmissionPlan', $data, array('SubmissionPlanID' => $data['SubmissionPlanID']));
+		if($this->db->affected_rows() > 0){
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

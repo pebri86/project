@@ -130,13 +130,14 @@
 								</div> </span>
 						</div>
 					</div>
-				</div>
-				<div class ="row" style="margin-top: 10px;">
 					<div class="col-md-2">
-						<button id="queryBtn" class="btn btn-primary btn-sm">
+						<button id="queryBtn" class="btn btn-primary btn-sm input-group-filter">
 							<i class="fa fa-search fa-fw"></i> Query
 						</button>
 					</div>
+				</div>
+				<div class ="row" style="margin-top: 10px;">
+					
 				</div>
 			</div>
 		</div>
@@ -312,15 +313,16 @@
 				data: $('#dialogForm').serialize(),
 				dataType : "json",
 				success : function(data) {
-					if (data.error == false) {																			
+					if (data.error == false) {		
+						ptable.api().ajax.reload();																	
 						$('#myModal').modal('hide');
 						$("#errMsg").html(st_success);
 						var delay = 1000;
 						setTimeout(function() {	
-							ptable.api().ajax.reload();
 							$('#errMsg').html('');
 						}, delay);
 					} else {
+						$('#myModal').modal('hide');
 						$("#errMsg").html(st_error);
 					}
 				},
