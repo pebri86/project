@@ -25,29 +25,37 @@ if (!defined('BASEPATH'))
 
 class ProdOrdModel extends CI_Model {
 	var $table = '';
-	
+
 	function __construct() {
 		// Call the Model constructor
 		parent::__construct();
 	}
-	
-	function set_table_name($table){
-		$this->table = $table;
+
+	function set_table_name($table) {
+		$this -> table = $table;
 	}
 
 	function get_all_record() {
-		$query = $this -> db -> get($this->table);
+		$query = $this -> db -> get($this -> table);
 		return $query -> result();
 	}
 
 	function insert($data) {
-		$this -> db -> insert($this->table, $data);
+		if ($this -> db -> insert($this -> table, $data)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	function update($data) {
-		$this -> db -> update($this->table, $data, array('ProdOrdID' => $data['ProdOrdID']));
+		$this -> db -> update($this -> table, $data, array('ProdOrdID' => $data['ProdOrdID']));
+		if ($this -> db -> affected_rows() > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
-
 }
 
 // END Model Class

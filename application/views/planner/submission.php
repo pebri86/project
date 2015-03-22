@@ -80,16 +80,34 @@
 		</div>
 	</div>
 </div>
+<!--
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-danger">
-			<!--
+			
 			<div class="panel-heading">
 			<h6 class="panel-title"><i class="fa fa-search fa-lg fa-fw"></i>Filter</h6>
 			</div>
-			-->
+			
 			<div class="panel-body">
-				<span id="errMsg"></span>
+				
+				
+				<div class ="row" style="margin-top: 10px;">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+-->
+<div class="row">
+	<div class="col-md-12">
+		<span id="errMsg"></span>
+		<div class="panel panel-info">
+			<div class="panel-heading clearfix">
+				<h5 class="panel-title"><i class="fa fa-calendar fa-lg fa-fw"></i>Target Penyerahan Perbulan</h5>
+			</div>
+			<div class="panel-body">
 				<div class="row">
 					<div class="col-md-3">
 						<div class="input-group input-group-sm input-group-filter">
@@ -136,21 +154,7 @@
 						</button>
 					</div>
 				</div>
-				<div class ="row" style="margin-top: 10px;">
-					
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-12">
-		<div class="panel panel-info">
-			<div class="panel-heading clearfix">
-				<h5 class="panel-title"><i class="fa fa-calendar fa-lg fa-fw"></i>Target Penyerahan Perbulan</h5>
-			</div>
-			<div class="panel-body">
-				<div role="tabpanel">
+				<div role="tabpanel" style="margin-top: 10px;">
 					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
 						<li role="presentation" class="active">
@@ -165,7 +169,7 @@
 					<div class="tab-content">
 						<div role="tabpanel" class="tab-pane active" id="list">
 							<p style="margin-top: 10px;">
-								<a id="addBtn" class="btn btn-primary btn-sm"><i class="fa  fa-plus-circle"></i> Tambah data</a>
+								<a id="addBtn" class="btn btn-primary btn-sm disabled"><i class="fa  fa-plus-circle"></i> Tambah data</a>
 								<a id="editBtn" class="btn btn-primary btn-sm"><i class="fa  fa-edit"></i> Edit</a>
 							</p>
 
@@ -218,6 +222,13 @@
             	"bServerSide": false,
             	"sAjaxSource": "<?php echo base_url('index.php/submission/datatable'); ?>/"+year+"/"+denom,
             	"order": [[ 7, "asc" ]],
+            	"fnDrawCallback": function () {
+            					if( this.fnSettings().fnRecordsTotal() == 0 ){
+            						if ($('#addBtn').hasClass('disabled'))
+										$('#addBtn').removeClass('disabled');
+								}else
+									$('#addBtn').addClass('disabled');	;
+        					},
             	"columns" : [{
 			"data" : "OrderNo"
 		}, {
@@ -247,6 +258,13 @@
 		ptable = $('#plan-table').dataTable({
 		"bProcessing": true,
         "bServerSide": false,
+        "fnDrawCallback": function () {
+            					if( this.fnSettings().fnRecordsTotal() == 0 ){
+            						if ($('#addBtn').hasClass('disabled'))
+										$('#addBtn').removeClass('disabled');
+								}else
+									$('#addBtn').addClass('disabled');	;
+        					},
         "order": [[ 7, "asc" ]],
         "columns" : [{
 			"data" : "OrderNo"
