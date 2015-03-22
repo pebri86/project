@@ -220,7 +220,7 @@
 		ptable = $('#plan-table').dataTable({
 				"bProcessing": true,
             	"bServerSide": false,
-            	"sAjaxSource": "<?php echo base_url('index.php/submission/datatable'); ?>/"+year+"/"+denom,
+            	"sAjaxSource": "<?php echo base_url('submission/datatable'); ?>/"+year+"/"+denom,
             	"order": [[ 7, "asc" ]],
             	"fnDrawCallback": function () {
             					if( this.fnSettings().fnRecordsTotal() == 0 ){
@@ -326,7 +326,7 @@
 		var st_success = '<div class="alert alert-success" role="alert"><strong>Success!</strong> berhasil diproses.</div>';
 		var st_error = '<div class="alert alert-danger" role="alert"><strong>Perhatian!</strong> terjadi kesalahan.</div>';
 		$.ajax({
-				url : "<?php echo base_url('index.php/submission/update_data'); ?>",
+				url : "<?php echo base_url('submission/update_data'); ?>",
 				type : "POST",
 				data: $('#dialogForm').serialize(),
 				dataType : "json",
@@ -375,7 +375,7 @@
 		var st_success = '<div class="alert alert-success" role="alert"><strong>Success!</strong> berhasil diproses.</div>';
 		var st_error = '<div class="alert alert-danger" role="alert"><strong>Perhatian!</strong> terjadi kesalahan.</div>';
 		$.ajax({
-				url : "<?php echo base_url('index.php/submission/add_data'); ?>",
+				url : "<?php echo base_url('submission/add_data'); ?>",
 				type : "POST",
 				data: { Year: year, DenomID: denom },
 				dataType : "json",
@@ -407,7 +407,7 @@
 			$('#errMsg').html('<div class="alert alert-danger" role="alert"><strong>Error!</strong> Filter tahun dan pecahan tidak boleh kosong.</div>');
 		}else{
 			var oSettings = ptable.fnSettings();
-			oSettings.sAjaxSource  = "<?php echo base_url('index.php/submission/datatable'); ?>/"+year+"/"+denom;
+			oSettings.sAjaxSource  = "<?php echo base_url('submission/datatable'); ?>/"+year+"/"+denom;
 			ptable.api().ajax.reload();
 			$('#errMsg').html('');
 		}

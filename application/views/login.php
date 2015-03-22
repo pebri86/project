@@ -40,7 +40,7 @@
                     <input type="checkbox" value="remember-me">
                     Remember me
                 </label>
-                <a href="<?php echo base_url("/index.php/home"); ?>" class="pull-right need-help">Help </a><span class="clearfix"></span>
+                <a href="<?php echo base_url("/home"); ?>" class="pull-right need-help">Help </a><span class="clearfix"></span>
                 </form>
             </div>
 			<p class="text-center new-account">Perum Percetakan Uang Republik Indonesia &copy 2015 </p>

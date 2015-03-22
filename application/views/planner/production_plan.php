@@ -339,7 +339,7 @@
 
 	function update_order_list(txtYear, txtBagan) {
 	$.ajax({
-		url : "<?php echo base_url('index.php/submission/get_order_list'); ?>/"+txtYear+"/"+txtBagan,
+		url : "<?php echo base_url('submission/get_order_list'); ?>/"+txtYear+"/"+txtBagan,
 		type : "POST",
 		dataType : "json",
 		success : function(data) {
@@ -364,7 +364,7 @@
 			$('#errMsg').html('<div class="alert alert-danger" role="alert"><strong>Error!</strong> Filter tidak boleh kosong.</div>');
 		}else{
 			var oSettings = ptable.fnSettings();
-			oSettings.sAjaxSource  = "<?php echo base_url('index.php/production_plan/datatable'); ?>/"+orgCode+"/"+ordSub+"/"+year;
+			oSettings.sAjaxSource  = "<?php echo base_url('production_plan/datatable'); ?>/"+orgCode+"/"+ordSub+"/"+year;
 			ptable.api().ajax.reload();
 		$('#errMsg').html('');
 		}
@@ -422,7 +422,7 @@
 		var st_success = '<div class="alert alert-success" role="alert"><strong>Success!</strong> berhasil diproses.</div>';
 		var st_error = '<div class="alert alert-danger" role="alert"><strong>Perhatian!</strong> terjadi kesalahan.</div>';
 		$.ajax({
-				url : "<?php echo base_url('index.php/production_plan/update_data'); ?>/"+orgCode,
+				url : "<?php echo base_url('production_plan/update_data'); ?>/"+orgCode,
 				type : "POST",
 				data: $('#dialogForm').serialize(),
 				dataType : "json",
